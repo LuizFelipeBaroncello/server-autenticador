@@ -81,5 +81,11 @@ public class TwoFactorAuthService {
 
         return bytes;
     }
-
+    public static String generateSecretKey() {
+        SecureRandom random = new SecureRandom();
+        byte[] bytes = new byte[20];
+        random.nextBytes(bytes);
+        Base32 base32 = new Base32();
+        return base32.encodeToString(bytes);
+    }
 }
