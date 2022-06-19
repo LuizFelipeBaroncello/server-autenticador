@@ -23,4 +23,6 @@ public class Person {
     @Column(name = "authToken", length = 100, nullable = false)
     private String authToken;
 
+    @Column(name = "OTPSecret", length = 100, nullable = false)
+    private String OTPSecret;
 }

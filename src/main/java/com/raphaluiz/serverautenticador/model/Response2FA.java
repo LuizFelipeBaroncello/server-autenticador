@@ -7,8 +7,6 @@ import lombok.*;
 @Setter
 @EqualsAndHashCode
 @AllArgsConstructor
-public class AuthData {
-
-    private String userName;
-    private String authToken;
+public class Response2FA {
+    private String barCodeUrl;
 }
