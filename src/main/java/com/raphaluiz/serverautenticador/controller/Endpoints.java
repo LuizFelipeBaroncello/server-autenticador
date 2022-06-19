@@ -62,10 +62,10 @@ public class Endpoints {
         if (optionalPerson.isPresent()) {
             Person person = optionalPerson.get();
             if (person.getAuthToken().equals(encodedAuthToken)) {
-                return ResponseEntity.ok("Please, verify your OTP code!");
+                return ResponseEntity.ok("{\"result\":\"Please verify the otp code!\"}");
             }
         }
-        return new ResponseEntity<>("Ops, wrong password!!!", HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity("{\"result\":\"Ops, wrong password!\"}", HttpStatus.UNAUTHORIZED);
     }
 
 
@@ -74,16 +74,16 @@ public class Endpoints {
 
         Optional<Person> optionalPerson = personRepository.getByName(auth2fa.getUserName());
 
-        if (optionalPerson.isPresent())
-            return new ResponseEntity<>("Usuário existente", HttpStatus.BAD_REQUEST);
+        if (!optionalPerson.isPresent())
+            return new ResponseEntity<>("Usuário não existente", HttpStatus.BAD_REQUEST);
 
         String secretKey = optionalPerson.get().getOTPSecret();
 
         String OTPcode = twoFactorAuthService.getTOTPCode(secretKey);
 
         if (auth2fa.getOTPCode().equals(OTPcode)) {
-            return ok(null);
+            return ok("{\"result\":\"Cograts, you are in!!\"}");
         }
-        return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity("{\"result\":\"Wrong OTP Code!!!\"}", HttpStatus.UNAUTHORIZED);
     }
 }
