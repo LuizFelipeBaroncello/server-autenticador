@@ -16,9 +16,10 @@ public class ScryptService {
     private static Integer COST_PARAMETER = 2048;
     private static Integer BLOCK_SIZE = 8;
     private static Integer PARALLELIZATION_PARAM = 1;
-
+    private static String SALT = "e11a18b5cbb743272531559983a07c3b";
     public String encode(String text) {
-        return Hex.encodeHexString(useScryptKDF(text.toCharArray(), System.getenv().get("SALT").getBytes(StandardCharsets.UTF_8), COST_PARAMETER, BLOCK_SIZE, PARALLELIZATION_PARAM));
+
+        return Hex.encodeHexString(useScryptKDF(text.toCharArray(), SALT.getBytes(StandardCharsets.UTF_8), COST_PARAMETER, BLOCK_SIZE, PARALLELIZATION_PARAM));
     }
 
     private byte[] useScryptKDF(char[] password,
